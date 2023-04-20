@@ -3,7 +3,7 @@ version: '3.8'
 services:
   mongodb:
     image: mongo
-    container_name: bookmark_nest_bookmark_mate
+    container_name: bookmark_mate_nest_mongodb
     restart: always
     volumes:
       - ./db:/data/db
