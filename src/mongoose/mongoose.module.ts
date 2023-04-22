@@ -6,4 +6,4 @@ import { MongooseModule } from '@nestjs/mongoose';
     MongooseModule.forRoot('mongodb://localhost/bookmark_mate_nest_mongodb'),
   ],
 })
-export class MongooseConfigModule { }
+export class MongooseConfigModule {}
