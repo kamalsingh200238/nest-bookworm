@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { SignUpDto } from './dto/signUp.dto';
 
 @Injectable()
 export class AuthService {
-  signUp() {
-    return "sign up working";
+  signUp(singUpDto: SignUpDto) {
+    return { singUpDto };
   }
 }
