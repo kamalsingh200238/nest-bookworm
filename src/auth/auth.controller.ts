@@ -2,6 +2,7 @@ import { Body, Controller, Post, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { UserService } from 'src/user/user.service';
 import { AuthService } from './auth.service';
+import { LogInDto } from './dto/logIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
 
 @Controller('auth')
@@ -29,5 +30,10 @@ export class AuthController {
     res.cookie('token', jwtToken);
 
     res.send({ userId: user._id, username: user.username, email: user.email });
+  }
+
+  @Post('login')
+  async login(@Body() logInDto: LogInDto) {
+    return logInDto
   }
 }
