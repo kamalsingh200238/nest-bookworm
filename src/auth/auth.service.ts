@@ -1,16 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'src/user/user.service';
-import { SignUpDto } from './dto/signUp.dto';
+import { JwtService } from '@nestjs/jwt';
+import { UserDocument } from 'src/user/user.schema';
 
 @Injectable()
 export class AuthService {
-  constructor(private userService: UserService) {}
-  async signUp(signUpDto: SignUpDto) {
-    await this.userService.createNewUser(signUpDto);
-    return { signUpDto };
-    // add the user in the database
-    // generate jwt token
-    // set the token in the cookie
-    // return the data (only id, username, email)
+  constructor(private jwtService: JwtService) {}
+
+  async generateJwtToken(user: UserDocument) {
+    // payload for jwt token
+    const payload = {
+      userId: user._id,
+      username: user.username,
+      email: user.email,
+    };
+
+    // generate token
+    const token = this.jwtService.sign(payload);
+
+    return token;
   }
 }
