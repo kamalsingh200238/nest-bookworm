@@ -10,7 +10,7 @@ export class UserService {
   async createNewUser(userInfo: User) {
     const { username, email, password } = userInfo;
     // check if the user already exists
-    const existingUser = await this.userModel.findOne({ email }).exec();
+    const existingUser = await this.userModel.findOne({ email });
 
     if (existingUser) {
       // if user exist then send bad request error
