@@ -1,6 +1,15 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
-import { Response } from 'express';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
+import { Request, Response } from 'express';
 import { UserService } from 'src/user/user.service';
+import { JwtAuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { LogInDto } from './dto/logIn.dto';
 import { SignUpDto } from './dto/signUp.dto';
@@ -33,7 +42,14 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() logInDto: LogInDto) {
-    return logInDto
+  async login(@Body() logInDto: LogInDto, @Res() res: Response) {
+    return this.authService.validateUser(logInDto, res);
+  }
+
+  @Get('protected')
+  @UseGuards(JwtAuthGuard)
+  async hello(@Req() req: Request) {
+    const { user } = req;
+    return { user, isWorking: 'yeaah' };
   }
 }
