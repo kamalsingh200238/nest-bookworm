@@ -7,6 +7,7 @@ import * as bcrypt from 'bcryptjs';
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+
   async createNewUser(userInfo: User) {
     const { username, email, password } = userInfo;
     // check if the user already exists
@@ -26,5 +27,15 @@ export class UserService {
       password: hashedPassword,
     });
     return await user.save();
+  }
+
+  async findByEmail(email: string) {
+    const user = await this.userModel.findOne({ email });
+    return user;
+  }
+
+  async findById(id: string) {
+    const user = await this.userModel.findById(id);
+    return user;
   }
 }
