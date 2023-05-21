@@ -17,8 +17,7 @@ export class UserService {
       throw new BadRequestException('User already exist, use different email');
     }
 
-    // hash the password
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10); // hash the password
 
     // create new user
     const user = new this.userModel({
