@@ -13,7 +13,7 @@ export class Bookmark {
   @Prop({ required: true })
   url: string;
 
-  @Prop({ required: true })
+  @Prop()
   description: string;
   
   @Prop({ type: SchemaTypes.ObjectId, ref: 'User', required: true })
