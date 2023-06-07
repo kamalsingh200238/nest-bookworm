@@ -3,10 +3,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from './user.schema';
 import * as bcrypt from 'bcryptjs';
+import { FolderService } from 'src/folder/folder.service';
 
 @Injectable()
 export class UserService {
-  constructor(@InjectModel(User.name) private userModel: Model<User>) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<User>,
+    private folderService: FolderService,
+  ) {}
 
   async createNewUser(userInfo: User) {
     const { username, email, password } = userInfo;
@@ -26,6 +30,9 @@ export class UserService {
       email,
       password: hashedPassword,
     });
+
+    // create default folder
+    const defaultFolder = this.folderService.createDefaultFolder(user._id)
     return user;
   }
 
