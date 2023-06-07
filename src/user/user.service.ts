@@ -21,12 +21,12 @@ export class UserService {
     const hashedPassword = await bcrypt.hash(password, 10); // hash the password
 
     // create new user
-    const user = new this.userModel({
+    const user = await this.userModel.create({
       username,
       email,
       password: hashedPassword,
     });
-    return await user.save();
+    return user;
   }
 
   async findByEmail(email: string) {
