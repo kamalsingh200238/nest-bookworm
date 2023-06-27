@@ -2,22 +2,22 @@
 
 ## Tasks
 
-### Bookmark tasks
+### Bookmark routes
 
-| Task                    | Method | Route         |
-| ----------------------- | ------ | ------------- |
-| - [ ] Get all bookmarks | Get    | /bookmark/    |
-| - [ ] Create a Bookmark | Post   | /bookmark/    |
-| - [ ] Get a Bookmark    | Get    | /bookmark/:id |
-| - [ ] Edit a Bookmark   | Patch  | /bookmark/:id |
-| - [ ] Delete a Bookmark | Delete | /bookmark/:id |
+| Task                          | Method | Route         |
+| ----------------------------- | ------ | ------------- |
+| - [x] Create a Bookmark       | Post   | /bookmark/    |
+| - [x] Edit a Bookmark by id   | Patch  | /bookmark/:id |
+| - [x] Delete a Bookmark by id | Delete | /bookmark/:id |
+| - [ ] Get a Bookmark by id    | Get    | /bookmark/:id |
+| - [x] Get all bookmarks       | Get    | /bookmark/    |
 
-### Folder tasks
+### Folder routes
 
 | Task                  | Method | Route       |
 | --------------------- | ------ | ----------- |
-| - [ ] Get all Folders | Get    | /folder/    |
 | - [ ] Create a folder | Post   | /folder/    |
-| - [ ] Get a folder    | Get    | /folder/:id |
 | - [ ] Edit a folder   | Patch  | /folder/:id |
 | - [ ] Delete a folder | Delete | /folder/:id |
+| - [ ] Get a folder    | Get    | /folder/:id |
+| - [ ] Get all Folders | Get    | /folder/    |
