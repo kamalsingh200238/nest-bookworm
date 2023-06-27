@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, Types } from 'mongoose';
-import { BookmarkDocument } from 'src/bookmark/bookmark.schema';
 import { Folder } from './folder.schema';
 
 @Injectable()
@@ -11,7 +10,7 @@ export class FolderService {
   async createDefaultFolder(userId: Types.ObjectId) {
     const defaultFolder = await this.folderModel.create({
       name: 'default',
-      user: userId,
+      userId: userId,
       bookmarks: [],
     });
     return defaultFolder;
@@ -19,10 +18,9 @@ export class FolderService {
 
   async getAllBookmarks(userId: Types.ObjectId) {
     const bookmarks = await this.folderModel
-      .find({ user: userId })
+      .find({ userId: userId })
       .populate('bookmarks')
       .exec();
-    console.log({ bookmarks });
     return bookmarks;
   }
 
@@ -30,10 +28,24 @@ export class FolderService {
     folderId: Types.ObjectId,
     bookmarkId: Types.ObjectId,
   ) {
+    console.log({ bookmarkId, folderId });
     await this.folderModel
       .findByIdAndUpdate(
         folderId,
         { $push: { bookmarks: bookmarkId } },
+        { new: true },
+      )
+      .exec();
+  }
+
+  async pullBookmarkFromFolder(
+    folderId: Types.ObjectId,
+    bookmarkId: Types.ObjectId,
+  ) {
+    await this.folderModel
+      .findByIdAndUpdate(
+        folderId,
+        { $pull: { bookmarks: bookmarkId } },
         { new: true },
       )
       .exec();
