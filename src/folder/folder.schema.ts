@@ -1,7 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import * as mongoose from 'mongoose';
-import { Bookmark } from 'src/bookmark/bookmark.schema';
-import { User } from 'src/user/user.schema';
 
 export type FolderDocument = mongoose.HydratedDocument<Folder>;
 
@@ -11,13 +9,13 @@ export class Folder {
   name: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
-  user: User;
+  userId: mongoose.Types.ObjectId;
 
   @Prop({
     type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Bookmark' }],
     required: true,
   })
-  bookmarks: Bookmark[];
+  bookmarks: mongoose.Types.ObjectId[];
 }
 
 export const FolderSchema = SchemaFactory.createForClass(Folder);
